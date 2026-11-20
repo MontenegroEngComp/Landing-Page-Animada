@@ -1,0 +1,49 @@
+.marquee {
+  padding-block: 40px;
+  overflow: hidden;
+}
+
+.marquee__band {
+  height: 56px;
+  overflow: hidden;
+  background: var(--gradient-brand);
+}
+
+.marquee__track {
+  display: flex;
+  width: max-content;
+  height: 100%;
+  will-change: transform;
+}
+
+.marquee__group {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 24px;
+  padding-inline: 12px;
+}
+
+.marquee__item {
+  font: var(--text-h3);
+  white-space: nowrap;
+}
+
+.marquee__star {
+  width: 16px;
+  height: 16px;
+  padding: 1.88px;
+  animation: spin 6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@media (max-width: 900px) {
+  .marquee {
+    padding-block: 24px;
+  }
+}

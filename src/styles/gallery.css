@@ -1,0 +1,161 @@
+.gallery {
+  padding-top: 40px;
+}
+
+.gallery__heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.gallery__eyebrow {
+  font: var(--text-eyebrow);
+  text-transform: uppercase;
+}
+
+.gallery__title {
+  font: var(--text-h2);
+}
+
+.gallery__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding-block: 32px;
+}
+
+/* Proporção das colunas do layout: 488px + 696px */
+.gallery__row {
+  display: grid;
+  gap: 32px;
+}
+
+.gallery__row:first-child {
+  grid-template-columns: 488fr 696fr;
+}
+
+.gallery__row:last-child {
+  grid-template-columns: 696fr 488fr;
+}
+
+/* ---------- Card de foto ---------- */
+.photo-card {
+  position: relative;
+  height: 400px;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: var(--color-placeholder);
+  isolation: isolate;
+  /* Corrige o overflow arredondado durante transforms no Safari */
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+}
+
+.photo-card:focus-visible {
+  outline-offset: 4px;
+  border-radius: var(--radius-card);
+}
+
+.photo-card__media {
+  position: absolute;
+  inset: -8% 0;
+  will-change: transform;
+}
+
+.photo-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.9s var(--ease-out);
+}
+
+.photo-card:hover .photo-card__media img,
+.photo-card:focus-visible .photo-card__media img {
+  transform: scale(1.06);
+}
+
+/* Faixa com o perfil do Instagram que sobe no hover */
+.photo-card__info {
+  position: absolute;
+  inset: auto 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  height: max(20%, 72px);
+  padding-inline: 32px;
+  background: linear-gradient(to bottom, rgb(0 0 0 / 0), rgb(0 0 0 / 0.64));
+  color: var(--color-white);
+  font: var(--text-small);
+  transform: translateY(100%);
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.photo-card__info img {
+  border-radius: 50%;
+  transform: scale(0.6);
+  opacity: 0;
+  transition:
+    transform var(--duration-base) var(--ease-spring) 0.1s,
+    opacity var(--duration-fast) ease 0.1s;
+}
+
+.photo-card:hover .photo-card__info,
+.photo-card:focus-visible .photo-card__info {
+  transform: translateY(0);
+}
+
+.photo-card:hover .photo-card__info img,
+.photo-card:focus-visible .photo-card__info img {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Em telas de toque não existe hover: o perfil fica sempre visível */
+@media (hover: none) {
+  .photo-card__info {
+    transform: none;
+  }
+
+  .photo-card__info img {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+/* ---------- Tablet ---------- */
+@media (max-width: 900px) {
+  .gallery {
+    padding-top: 24px;
+  }
+
+  .gallery__grid,
+  .gallery__row {
+    gap: 24px;
+  }
+
+  .gallery__grid {
+    padding-block: 24px;
+  }
+
+  .photo-card {
+    height: clamp(256px, 45vw, 400px);
+  }
+}
+
+/* ---------- Celular ---------- */
+@media (max-width: 640px) {
+  .gallery__row:first-child,
+  .gallery__row:last-child {
+    grid-template-columns: 1fr;
+  }
+
+  .photo-card {
+    height: 256px;
+  }
+
+  .photo-card__info {
+    padding-inline: 24px;
+  }
+}
